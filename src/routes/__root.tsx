@@ -73,17 +73,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Industry AI OS — One AI platform for every line of business" },
+      { title: "Construction AI OS — AI copilots for RFIs, change orders, and site reporting" },
       {
         name: "description",
         content:
-          "A shared AI operating system with industry-specific copilots. Connect your email, files, and business systems — get AI that actually takes action.",
+          "An AI operating system built for construction. Connect Procore, Autodesk Construction Cloud, and your inbox — get copilots that draft RFI responses, change orders, and daily site reports for a PM to approve.",
       },
-      { property: "og:title", content: "Industry AI OS" },
+      { property: "og:title", content: "Construction AI OS" },
       {
         property: "og:description",
         content:
-          "One AI operating system. Industry-specific copilots for accounting, legal, construction and more.",
+          "AI copilots for RFIs, change orders, daily site reports, and subcontractor invoices — grounded in your drawings, schedules, and project systems.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

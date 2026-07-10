@@ -9,11 +9,26 @@
 export type IntegrationCategory =
   "Accounting" | "Banking" | "Construction" | "HR & ATS" | "Productivity";
 
+// Finer-grained grouping used only within the "Construction" category, so the
+// landing page's integration grid can offer sub-filters (Project Management,
+// Drawings & Field, Scheduling, Docs & Comms) without new top-level categories
+// that would also show up in the in-app Connector Hub's category chips.
+export type ConstructionSubcategory =
+  "Project Management" | "Drawings & Field" | "Scheduling" | "Docs & Comms";
+
+export const CONSTRUCTION_SUBCATEGORIES: ConstructionSubcategory[] = [
+  "Project Management",
+  "Drawings & Field",
+  "Scheduling",
+  "Docs & Comms",
+];
+
 export type Integration = {
   slug: string;
   name: string;
   domain: string;
   category: IntegrationCategory;
+  subcategory?: ConstructionSubcategory;
   /** True for the auth/comms platform (Nango), false for action platform (Composio). */
   auth?: boolean;
   /**
@@ -54,27 +69,126 @@ export const INTEGRATIONS: Integration[] = [
   { slug: "mercury", name: "Mercury", domain: "mercury.com", category: "Banking" },
   { slug: "wise", name: "Wise", domain: "wise.com", category: "Banking" },
 
-  // Construction
-  { slug: "procore", name: "Procore", domain: "procore.com", category: "Construction" },
+  // Construction — project & task management
   {
-    slug: "autodesk",
-    name: "Autodesk Construction Cloud",
-    domain: "autodesk.com",
+    slug: "procore",
+    name: "Procore",
+    domain: "procore.com",
     category: "Construction",
+    subcategory: "Project Management",
   },
   {
     slug: "buildertrend",
     name: "Buildertrend",
     domain: "buildertrend.com",
     category: "Construction",
+    subcategory: "Project Management",
   },
-  { slug: "fieldwire", name: "Fieldwire", domain: "fieldwire.com", category: "Construction" },
-  { slug: "bluebeam", name: "Bluebeam", domain: "bluebeam.com", category: "Construction" },
+  {
+    slug: "monday",
+    name: "Monday.com",
+    domain: "monday.com",
+    category: "Construction",
+    subcategory: "Project Management",
+  },
+  {
+    slug: "asana",
+    name: "Asana",
+    domain: "asana.com",
+    category: "Construction",
+    subcategory: "Project Management",
+  },
+  {
+    slug: "jira",
+    name: "Jira",
+    domain: "atlassian.com",
+    category: "Construction",
+    subcategory: "Project Management",
+  },
+  {
+    slug: "clickup",
+    name: "ClickUp",
+    domain: "clickup.com",
+    category: "Construction",
+    subcategory: "Project Management",
+  },
+  {
+    slug: "smartsheet",
+    name: "Smartsheet",
+    domain: "smartsheet.com",
+    category: "Construction",
+    subcategory: "Project Management",
+  },
+  // Construction — drawings & field
+  {
+    slug: "autodesk",
+    name: "Autodesk Construction Cloud",
+    domain: "autodesk.com",
+    category: "Construction",
+    subcategory: "Drawings & Field",
+  },
+  {
+    slug: "fieldwire",
+    name: "Fieldwire",
+    domain: "fieldwire.com",
+    category: "Construction",
+    subcategory: "Drawings & Field",
+  },
+  {
+    slug: "bluebeam",
+    name: "Bluebeam",
+    domain: "bluebeam.com",
+    category: "Construction",
+    subcategory: "Drawings & Field",
+  },
+  // Construction — scheduling
   {
     slug: "primavera",
     name: "Oracle Primavera P6",
     domain: "oracle.com",
     category: "Construction",
+    subcategory: "Scheduling",
+  },
+  // Construction — email, files & site communication
+  {
+    slug: "outlook",
+    name: "Outlook",
+    domain: "outlook.com",
+    category: "Construction",
+    subcategory: "Docs & Comms",
+    auth: true,
+  },
+  {
+    slug: "gmail",
+    name: "Gmail",
+    domain: "gmail.com",
+    category: "Construction",
+    subcategory: "Docs & Comms",
+    auth: true,
+  },
+  {
+    slug: "msteams",
+    name: "Microsoft Teams",
+    domain: "microsoft.com",
+    category: "Construction",
+    subcategory: "Docs & Comms",
+    auth: true,
+  },
+  {
+    slug: "sharepoint",
+    name: "SharePoint",
+    domain: "sharepoint.com",
+    category: "Construction",
+    subcategory: "Docs & Comms",
+    auth: true,
+  },
+  {
+    slug: "onedrive",
+    name: "OneDrive",
+    domain: "onedrive.live.com",
+    category: "Construction",
+    subcategory: "Docs & Comms",
+    auth: true,
   },
 
   // HR & ATS

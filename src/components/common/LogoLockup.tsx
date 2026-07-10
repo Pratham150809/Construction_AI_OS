@@ -9,11 +9,11 @@ export function LogoLockup({ className }: Readonly<{ className?: string }>) {
       <img src="/logo-light.png" alt="" className="h-10 w-auto object-contain" />
       <span className="flex flex-col leading-none">
         <span className="text-[0.6rem] font-semibold uppercase tracking-[0.3em] text-primary">
-          Industry
+          Construction
         </span>
         <span className="text-xl font-bold tracking-tight text-foreground">AI OS</span>
         <span className="mt-1 text-[0.6rem] font-medium text-muted-foreground">
-          One OS. Every Industry.
+          One OS. Every Project.
         </span>
       </span>
     </span>
