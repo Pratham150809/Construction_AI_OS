@@ -466,39 +466,98 @@ function Hero() {
 
 // ---------------- Core diagram ----------------
 
+type Pillar = {
+  name: string;
+  icon: LucideIcon;
+  desc: string;
+  detail: string;
+  whatItDoes: string[];
+};
+
+const PILLARS: Pillar[] = [
+  {
+    name: "Identity",
+    icon: ShieldCheck,
+    desc: "SSO and role-based access, so subcontractors, PMs, and owners each see only what they should.",
+    detail:
+      "Single sign-on and role-based access across every project. Subcontractors, project managers, and owners each see exactly the projects, documents, and actions they're allowed to — with a full audit trail behind every decision.",
+    whatItDoes: [
+      "SSO across your identity provider (Azure AD, Okta, Google Workspace)",
+      "Role-based permissions scoped by project, not just by company",
+      "Per-project access for subcontractors and owner's reps",
+      "Full audit trail on every login and permission change",
+    ],
+  },
+  {
+    name: "Site Copilot Chat",
+    icon: MessageSquare,
+    desc: "Ask about a spec section, a drawing detail, or a schedule item — grounded in this project's own documents.",
+    detail:
+      "Ask about a spec section, a drawing detail, or a schedule item and get an answer grounded in this project's own documents — not a generic AI guess.",
+    whatItDoes: [
+      "Grounded answers from drawings, specs, submittals, and schedules",
+      "Every answer cites the source document and page",
+      "Understands project-specific terminology and history",
+      "Available inside every copilot, not just as a standalone chat",
+    ],
+  },
+  {
+    name: "Workflow Engine",
+    icon: Workflow,
+    desc: "Runs RFIs, change orders, and approvals step by step, with a named approver and full history.",
+    detail:
+      "Runs RFIs, change orders, and approvals step by step — with a named approver, retries on failure, and a complete history of who did what.",
+    whatItDoes: [
+      "Configurable approval routing by role or dollar threshold",
+      "Automatic retries and escalations when a step stalls",
+      "Full history and audit trail for every workflow run",
+      "Powers every copilot in the library — nothing runs unsupervised",
+    ],
+  },
+  {
+    name: "Document Intelligence",
+    icon: FileText,
+    desc: "Reads drawings, specs, submittals, and scanned field notes, then extracts the structured data.",
+    detail:
+      "Reads drawings, specs, submittals, and scanned field notes, then extracts the structured data your copilots act on.",
+    whatItDoes: [
+      "OCR across drawings, PDFs, and handwritten field notes",
+      "Automatic revision detection on drawing sets",
+      "Structured extraction from specs and submittals",
+      "Full-text search across every project document",
+    ],
+  },
+  {
+    name: "Connector Hub",
+    icon: Share2,
+    desc: "One place to securely connect Procore, Autodesk Construction Cloud, and the inbox your team already uses.",
+    detail:
+      "One place to securely connect Procore, Autodesk Construction Cloud, and the inbox your team already uses. Authenticate once, then every copilot can read and act across your systems.",
+    whatItDoes: [
+      "Native connections to Procore, Autodesk Construction Cloud & Primavera P6",
+      "Email, Teams, and file storage in one config",
+      "Two-way sync — copilots read and write back to your systems of record",
+      "16 supported integrations, growing by request",
+    ],
+  },
+  {
+    name: "Admin",
+    icon: Settings2,
+    desc: "Control which projects, roles, and cost centers can use AI — with everything in the audit trail.",
+    detail:
+      "Control which projects, roles, and cost centers can use AI — with usage, cost, and safety visible in one dashboard and everything logged to the audit trail.",
+    whatItDoes: [
+      "Per-project and per-role AI access controls",
+      "Usage and cost visibility across the org",
+      "Safety and compliance controls for what AI can act on",
+      "Every action logged to a searchable audit trail",
+    ],
+  },
+];
+
 function CoreDiagram() {
-  const spokes: { name: string; icon: LucideIcon; desc: string }[] = [
-    {
-      name: "Identity",
-      icon: ShieldCheck,
-      desc: "SSO and role-based access, so subcontractors, PMs, and owners each see only what they should.",
-    },
-    {
-      name: "Site Copilot Chat",
-      icon: MessageSquare,
-      desc: "Ask about a spec section, a drawing detail, or a schedule item — grounded in this project's own documents.",
-    },
-    {
-      name: "Workflow Engine",
-      icon: Workflow,
-      desc: "Runs RFIs, change orders, and approvals step by step, with a named approver and full history.",
-    },
-    {
-      name: "Document Intelligence",
-      icon: FileText,
-      desc: "Reads drawings, specs, submittals, and scanned field notes, then extracts the structured data.",
-    },
-    {
-      name: "Connector Hub",
-      icon: Share2,
-      desc: "One place to securely connect Procore, Autodesk Construction Cloud, and the inbox your team already uses.",
-    },
-    {
-      name: "Admin",
-      icon: Settings2,
-      desc: "Control which projects, roles, and cost centers can use AI — with everything in the audit trail.",
-    },
-  ];
+  const [selected, setSelected] = useState<Pillar | null>(null);
+
   return (
     <section id="platform" className="border-b border-border/60 py-20">
       <div className="mx-auto max-w-7xl px-5">
@@ -516,12 +575,13 @@ function CoreDiagram() {
           </p>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {spokes.map((s, i) => {
+          {PILLARS.map((s, i) => {
             const Icon = s.icon;
             return (
-              <div
+              <button
                 key={s.name}
-                className="group rounded-xl border border-border bg-surface p-5 transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-md"
+                onClick={() => setSelected(s)}
+                className="group rounded-xl border border-border bg-surface p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-md"
               >
                 <div className="mb-4 flex items-center justify-between">
                   <span className="grid h-10 w-10 place-items-center rounded-lg border border-border bg-background text-muted-foreground transition group-hover:border-primary/40 group-hover:text-primary">
@@ -531,12 +591,94 @@ function CoreDiagram() {
                 </div>
                 <div className="text-base font-semibold">{s.name}</div>
                 <p className="mt-1.5 text-sm text-muted-foreground">{s.desc}</p>
-              </div>
+              </button>
             );
           })}
         </div>
       </div>
+
+      {selected && <PillarModal pillar={selected} onClose={() => setSelected(null)} />}
     </section>
+  );
+}
+
+function PillarModal({ pillar, onClose }: { pillar: Pillar; onClose: () => void }) {
+  const Icon = pillar.icon;
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-8 backdrop-blur-sm"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pillar-title"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="nice-scroll max-h-[88vh] w-full max-w-md overflow-y-auto rounded-2xl border border-border bg-surface shadow-2xl"
+      >
+        <div className="flex items-start justify-between gap-4 border-b border-border p-6">
+          <div className="flex items-center gap-4">
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary/15 text-primary">
+              <Icon className="h-6 w-6" />
+            </span>
+            <div>
+              <span className="font-mono text-[10px] font-medium uppercase tracking-wider text-primary">
+                Construction Core
+              </span>
+              <h3 id="pillar-title" className="mt-0.5 text-xl font-semibold tracking-tight">
+                {pillar.name}
+              </h3>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            aria-label="Close"
+            className="shrink-0 rounded-lg p-2 text-muted-foreground transition hover:bg-surface-2 hover:text-foreground"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div className="space-y-6 p-6">
+          <p className="text-sm text-foreground/90">{pillar.detail}</p>
+
+          <div>
+            <div className="mb-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+              What it does
+            </div>
+            <ul className="space-y-2">
+              {pillar.whatItDoes.map((w) => (
+                <li key={w} className="flex gap-2.5 text-sm text-foreground/90">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  {w}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <a
+            href="#copilots"
+            onClick={onClose}
+            className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
+          >
+            See the copilots that use it
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }
 
